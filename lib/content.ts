@@ -4,7 +4,7 @@
 export const site = {
   name: "Richard Topinka",
   role: "Fine-art & portrétní fotografie",
-  city: "Praha",
+  city: "Plzeň",
   email: "foto@richardtopinka.cz",
   phone: "+420 000 000 000",
   instagram: "@richardtopinka",

@@ -6,7 +6,7 @@ import { site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "O mně",
-  description: `${site.name} — fine-art a portrétní fotograf z Prahy.`,
+  description: `${site.name} — fine-art a portrétní fotograf z Plzně.`,
 };
 
 const approach = [
@@ -53,7 +53,7 @@ export default function OMnePage() {
             <h1 className="display mt-4 text-5xl sm:text-7xl">{site.name}</h1>
             <div className="mt-8 space-y-5 text-lg leading-relaxed text-ink-soft">
               <p>
-                Jsem fotograf z Prahy. Přes deset let se věnuji portrétu a aktu
+                Jsem fotograf z Plzně. Přes deset let se věnuji portrétu a aktu
                 — na pomezí dokumentu a volné, výtvarné tvorby.
               </p>
               <p>

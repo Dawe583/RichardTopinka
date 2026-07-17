@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "Fine-art a portrétní fotografie. Ateliérové portréty, studie světla a formy. Návrh fotografického portfolia.",
   openGraph: {
     title: `${site.name} — ${site.role}`,
-    description: "Fine-art a portrétní fotografie z Prahy.",
+    description: "Fine-art a portrétní fotografie z Plzně.",
     type: "website",
     locale: "cs_CZ",
     images: ["/images/og.jpg"],

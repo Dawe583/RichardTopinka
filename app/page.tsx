@@ -30,7 +30,7 @@ export default function Home() {
               style={{ animationDelay: "0.35s" }}
             >
               Fotografuji tělo jako krajinu — hledám ticho mezi světlem a
-              stínem. Ateliérové portréty a volná fine-art tvorba z Prahy.
+              stínem. Ateliérové portréty a volná fine-art tvorba z Plzně.
             </p>
             <div
               className="anim-fade-up mt-10 flex flex-wrap items-center gap-4"
