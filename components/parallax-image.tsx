@@ -27,7 +27,7 @@ export function ParallaxImage({
     const frame = frameRef.current;
     const inner = innerRef.current;
     if (!frame || !inner) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Runs on every device / regardless of motion preference, by request.
 
     let raf = 0;
     const update = () => {

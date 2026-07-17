@@ -14,9 +14,10 @@ export function CustomCursor() {
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
+    // Only where an actual pointer exists (a touch screen has no cursor to
+    // replace). Not gated on reduced-motion — by request.
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!fine || reduced) return;
+    if (!fine) return;
 
     document.body.classList.add("has-custom-cursor");
     dot.style.opacity = "1";

@@ -215,22 +215,32 @@ body.has-custom-cursor button {
   animation: rise 1.05s cubic-bezier(0.16, 0.84, 0.44, 1) both;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+/* page transition on navigation */
+@keyframes page-in {
+  from {
+    opacity: 0;
   }
-  .reveal,
-  .anim-fade-up,
-  .mask-line > span {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-    transition: none !important;
-  }
-  .marquee-track {
-    animation: none !important;
-  }
-  .photo:hover img {
-    transform: none;
+  to {
+    opacity: 1;
   }
 }
+.page-enter {
+  animation: page-in 0.5s ease both;
+}
+
+/* keyboard focus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+/* back-to-top */
+.to-top {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* By request: all animations, effects and smooth scroll run on every device
+   and regardless of the user's reduced-motion preference — no restrictions. */

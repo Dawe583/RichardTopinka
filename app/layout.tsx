@@ -8,6 +8,8 @@ import { ScrollProgress } from "@/components/scroll-progress";
 import { CustomCursor } from "@/components/custom-cursor";
 import { AgeGate } from "@/components/age-gate";
 import { JsonLd } from "@/components/json-ld";
+import { PageTransition } from "@/components/page-transition";
+import { BackToTop } from "@/components/back-to-top";
 import { site } from "@/lib/content";
 
 const geistSans = Geist({
@@ -59,12 +61,21 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className="min-h-full flex flex-col antialiased">
+        <a
+          href="#obsah"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-ink focus:px-5 focus:py-2 focus:text-sm focus:text-paper"
+        >
+          Přeskočit na obsah
+        </a>
         <AgeGate />
         <ScrollProgress />
         <CustomCursor />
+        <BackToTop />
         <SmoothScroll>
           <SiteHeader />
-          <main className="flex-1">{children}</main>
+          <main id="obsah" className="flex-1">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <SiteFooter />
         </SmoothScroll>
       </body>
