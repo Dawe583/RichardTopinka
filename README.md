@@ -1,42 +1,61 @@
-# Richard Topinka — Fotoblog
+# Richard Topinka — Fotoblog / Portfolio
 
-Blog pro fotografa aktů. Layout podle šablony akirasato.framer.website, vlastní kód: Next.js 16 + GSAP + Lenis + SQLite.
+Grafický **návrh** webu pro fotografa (portrét · akt · fine-art). Postaveno na
+Next.js 16 (App Router) + Tailwind CSS v4. Statický web — běží kdekoliv,
+nasazení na **Vercel** funguje bez konfigurace.
 
 ## Spuštění
 
 ```bash
 npm install
-npm run seed     # jednorázově: ukázková data + placeholder fotky
-npm run build
-npm start        # http://localhost:3000
+npm run dev      # http://localhost:3000
 ```
 
-Vývoj: `npm run dev`.
+Produkční build:
 
-## Administrace
-
-- URL: `http://localhost:3000/admin`
-- Heslo: v `.env.local` → `ADMIN_PASSWORD` (**před nasazením změnit!**), `SESSION_SECRET` (změnit na náhodný řetězec)
-- Články: vytváření, úpravy, publikace/koncept, úvodní fotka + galerie fotek k článku
-- Série: kolekce, do kterých se články řadí
-- Galerie: fotky pro stránku Galerie a úvodní stránku
-
-Fotky se při nahrání automaticky zmenší a převedou do WebP (600/1200/2000 px) — lze nahrávat JPEGy v plném rozlišení.
+```bash
+npm run build
+npm start
+```
 
 ## Struktura
 
-- `app/(web)/` — veřejné stránky (Domů, Blog, Série, Galerie, O mně, Kontakt)
-- `app/admin/` — administrace (heslo, HMAC session cookie)
-- `app/api/uploads/` — servírování fotek z `uploads/`
-- `lib/db.ts` — SQLite (soubor `data/blog.db`), `lib/images.ts` — sharp pipeline
-- `components/anim/` — Lenis smooth scroll, GSAP animace (preloader, page transitions, parallax, SplitText reveals, custom cursor, marquee, 18+ brána)
-- `scripts/seed.mjs` — ukázková data
+- `app/` — stránky App Routeru
+  - `page.tsx` — Domů (hero, vybrané práce, série, o mně, kontakt)
+  - `galerie/` — Galerie s lightboxem
+  - `serie/` — Série / kolekce
+  - `o-mne/` — O mně
+  - `kontakt/` — Kontakt (formulář přes `mailto:`)
+- `components/` — hlavička, patička, galerie/lightbox, kontaktní formulář, reveal animace
+- `lib/content.ts` — veškerý obsah (texty, seznam fotek, série) na jednom místě
+- `public/images/` — fotografie
+- `scripts/generate-images.mjs` — generátor zástupných fotek
+
+## Fotografie
+
+Fotky v `public/images/` jsou zatím **zástupné** — cohesivní černobílé
+studie světla (film-grain), aby web působil hotově a šel ukázat jako návrh.
+Jsou uložené přímo v repu, takže se web vždy vykreslí i offline.
+
+**Nahrazení skutečnými fotkami:** stačí do `public/images/` vložit soubory se
+stejnými názvy (`hero.jpg`, `work-01.jpg` … `work-09.jpg`, `portrait.jpg`,
+`series-01…03.jpg`) a upravit texty v `lib/content.ts`.
+
+Regenerace zástupných fotek:
+
+```bash
+npm i -D sharp
+node scripts/generate-images.mjs
+```
 
 ## Nasazení
 
-Potřebuje Node.js server (VPS, Railway, …) — kvůli SQLite a ukládání fotek na disk nelze na serverless (Vercel) bez úprav. Zálohovat stačí `data/` + `uploads/`.
+Web je plně statický — **nasazení na Vercel funguje bez úprav**. Připojte repozitář
+ve Vercelu (Framework preset se díky `vercel.json` nastaví na Next.js) a nasaďte
+produkční větev. Alternativně jakýkoliv Node.js hosting (`npm run build && npm start`).
 
 ## Po nasazení upravit
 
-- E-mail `foto@richardtopinka.cz` (Footer.tsx, kontakt) a odkazy na sociální sítě (zatím placeholdery)
-- Placeholder fotky nahradit skutečnými přes admin
+- E-mail, telefon a odkazy na sociální sítě v `lib/content.ts` (zatím placeholdery)
+- Zástupné fotky nahradit skutečnými (viz výše)
+- Texty a názvy sérií v `lib/content.ts`
