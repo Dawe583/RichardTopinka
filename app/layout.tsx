@@ -6,6 +6,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { CustomCursor } from "@/components/custom-cursor";
+import { AgeGate } from "@/components/age-gate";
+import { JsonLd } from "@/components/json-ld";
 import { site } from "@/lib/content";
 
 const geistSans = Geist({
@@ -54,8 +56,10 @@ export default function RootLayout({
         <noscript>
           <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
         </noscript>
+        <JsonLd />
       </head>
       <body className="min-h-full flex flex-col antialiased">
+        <AgeGate />
         <ScrollProgress />
         <CustomCursor />
         <SmoothScroll>
