@@ -87,6 +87,7 @@ export function SiteHeader() {
 
       {/* Mobile menu */}
       <div
+        data-lenis-prevent
         className={`fixed inset-0 z-40 flex flex-col bg-paper px-6 pt-24 transition-opacity duration-300 md:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
+import { ParallaxImage } from "@/components/parallax-image";
 import { series } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -29,15 +29,13 @@ export default function SeriePage() {
                 i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
               }`}
             >
-              <div className="photo relative aspect-[3/2] w-full">
-                <Image
-                  src={s.cover}
-                  alt={s.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
+              <ParallaxImage
+                src={s.cover}
+                alt={s.title}
+                speed={11}
+                className="aspect-[3/2] w-full"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
               <div>
                 <p className="eyebrow">
                   Série {String(i + 1).padStart(2, "0")} · {s.count} fotografií

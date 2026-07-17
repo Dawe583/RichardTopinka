@@ -3,6 +3,9 @@ import { Geist, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { CustomCursor } from "@/components/custom-cursor";
 import { site } from "@/lib/content";
 
 const geistSans = Geist({
@@ -53,9 +56,13 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className="min-h-full flex flex-col antialiased">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        <ScrollProgress />
+        <CustomCursor />
+        <SmoothScroll>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </SmoothScroll>
       </body>
     </html>
   );

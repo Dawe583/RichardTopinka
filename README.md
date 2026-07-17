@@ -26,7 +26,8 @@ npm start
   - `serie/` — Série / kolekce
   - `o-mne/` — O mně
   - `kontakt/` — Kontakt (formulář přes `mailto:`)
-- `components/` — hlavička, patička, galerie/lightbox, kontaktní formulář, reveal animace
+- `components/` — hlavička, patička, galerie/lightbox, kontaktní formulář a efekty:
+  Lenis smooth scroll, parallax fotky, mask-reveal nadpisů, marquee, custom kurzor, scroll progress
 - `lib/content.ts` — veškerý obsah (texty, seznam fotek, série) na jednom místě
 - `public/images/` — fotografie
 - `scripts/generate-images.mjs` — generátor zástupných fotek
@@ -53,6 +54,11 @@ node scripts/generate-images.mjs
 Web je plně statický — **nasazení na Vercel funguje bez úprav**. Připojte repozitář
 ve Vercelu (Framework preset se díky `vercel.json` nastaví na Next.js) a nasaďte
 produkční větev. Alternativně jakýkoliv Node.js hosting (`npm run build && npm start`).
+
+## Další rozvoj
+
+Návrh, jak web posunout dál (CMS, skutečný blog, klientské galerie, e-shop
+s tisky, SEO…), je v [`docs/NAVRH.md`](docs/NAVRH.md).
 
 ## Po nasazení upravit
 

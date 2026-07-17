@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
+import { Marquee } from "@/components/marquee";
+import { ParallaxImage } from "@/components/parallax-image";
 import { series, site, works } from "@/lib/content";
 
 const featured = ["work-01", "work-03", "work-07", "work-04", "work-06", "work-02"]
@@ -13,18 +15,27 @@ export default function Home() {
       {/* ---------------- HERO ---------------- */}
       <section className="mx-auto max-w-[88rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-16 lg:px-12">
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-          <div className="anim-fade-up order-2 lg:order-1">
-            <p className="eyebrow">Fine art · Portrét · Akt</p>
-            <h1 className="display mt-6 text-[3.4rem] leading-[0.92] sm:text-7xl lg:text-8xl">
-              Richard
-              <br />
-              Topinka
+          <div className="order-2 lg:order-1">
+            <p className="anim-fade-up eyebrow">Fine art · Portrét · Akt</p>
+            <h1 className="mt-6 text-[3.4rem] leading-[0.92] sm:text-7xl lg:text-8xl">
+              <span className="mask-line display">
+                <span style={{ animationDelay: "0.08s" }}>Richard</span>
+              </span>
+              <span className="mask-line display">
+                <span style={{ animationDelay: "0.2s" }}>Topinka</span>
+              </span>
             </h1>
-            <p className="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
+            <p
+              className="anim-fade-up mt-7 max-w-md text-lg leading-relaxed text-ink-soft"
+              style={{ animationDelay: "0.35s" }}
+            >
               Fotografuji tělo jako krajinu — hledám ticho mezi světlem a
               stínem. Ateliérové portréty a volná fine-art tvorba z Prahy.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div
+              className="anim-fade-up mt-10 flex flex-wrap items-center gap-4"
+              style={{ animationDelay: "0.45s" }}
+            >
               <Link
                 href="/galerie"
                 className="rounded-full bg-ink px-7 py-3.5 text-sm uppercase tracking-[0.14em] text-paper transition-colors hover:bg-noir"
@@ -41,16 +52,14 @@ export default function Home() {
           </div>
 
           <div className="anim-fade-up order-1 lg:order-2" style={{ animationDelay: "120ms" }}>
-            <div className="photo relative aspect-[4/5] w-full">
-              <Image
-                src="/images/hero.jpg"
-                alt="Fine-art fotografie — studie světla a formy"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="object-cover"
-              />
-            </div>
+            <ParallaxImage
+              src="/images/hero.jpg"
+              alt="Fine-art fotografie — studie světla a formy"
+              priority
+              speed={7}
+              className="aspect-[4/5] w-full"
+              sizes="(max-width: 1024px) 100vw, 45vw"
+            />
           </div>
         </div>
       </section>
@@ -145,15 +154,13 @@ export default function Home() {
             {series.map((s, i) => (
               <Reveal key={s.slug} as="div" delay={i * 90}>
                 <Link href="/serie" className="group block">
-                  <div className="photo relative aspect-[3/4] w-full">
-                    <Image
-                      src={s.cover}
-                      alt={s.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 30vw"
-                      className="object-cover"
-                    />
-                  </div>
+                  <ParallaxImage
+                    src={s.cover}
+                    alt={s.title}
+                    speed={12}
+                    className="aspect-[3/4] w-full"
+                    sizes="(max-width: 768px) 100vw, 30vw"
+                  />
                   <div className="mt-5 flex items-baseline justify-between">
                     <h3 className="display text-2xl">{s.title}</h3>
                     <span className="text-xs uppercase tracking-[0.14em] text-ink-faint">
@@ -174,15 +181,13 @@ export default function Home() {
       <section className="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal className="order-2 lg:order-1">
-            <div className="photo relative aspect-[4/5] w-full max-w-md">
-              <Image
-                src="/images/portrait.jpg"
-                alt="Portrét autora"
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover"
-              />
-            </div>
+            <ParallaxImage
+              src="/images/portrait.jpg"
+              alt="Portrét autora"
+              speed={12}
+              className="aspect-[4/5] w-full max-w-md"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+            />
           </Reveal>
           <Reveal className="order-1 lg:order-2" delay={80}>
             <p className="eyebrow">O mně</p>
@@ -203,6 +208,9 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      {/* ---------------- MARQUEE ---------------- */}
+      <Marquee />
 
       {/* ---------------- CONTACT CTA ---------------- */}
       <section className="bg-noir text-paper">
