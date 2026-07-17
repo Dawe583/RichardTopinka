@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Richard Topinka — Fotoblog
 
-## Getting Started
+Blog pro fotografa aktů. Layout podle šablony akirasato.framer.website, vlastní kód: Next.js 16 + GSAP + Lenis + SQLite.
 
-First, run the development server:
+## Spuštění
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run seed     # jednorázově: ukázková data + placeholder fotky
+npm run build
+npm start        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Vývoj: `npm run dev`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Administrace
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- URL: `http://localhost:3000/admin`
+- Heslo: v `.env.local` → `ADMIN_PASSWORD` (**před nasazením změnit!**), `SESSION_SECRET` (změnit na náhodný řetězec)
+- Články: vytváření, úpravy, publikace/koncept, úvodní fotka + galerie fotek k článku
+- Série: kolekce, do kterých se články řadí
+- Galerie: fotky pro stránku Galerie a úvodní stránku
 
-## Learn More
+Fotky se při nahrání automaticky zmenší a převedou do WebP (600/1200/2000 px) — lze nahrávat JPEGy v plném rozlišení.
 
-To learn more about Next.js, take a look at the following resources:
+## Struktura
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app/(web)/` — veřejné stránky (Domů, Blog, Série, Galerie, O mně, Kontakt)
+- `app/admin/` — administrace (heslo, HMAC session cookie)
+- `app/api/uploads/` — servírování fotek z `uploads/`
+- `lib/db.ts` — SQLite (soubor `data/blog.db`), `lib/images.ts` — sharp pipeline
+- `components/anim/` — Lenis smooth scroll, GSAP animace (preloader, page transitions, parallax, SplitText reveals, custom cursor, marquee, 18+ brána)
+- `scripts/seed.mjs` — ukázková data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Nasazení
 
-## Deploy on Vercel
+Potřebuje Node.js server (VPS, Railway, …) — kvůli SQLite a ukládání fotek na disk nelze na serverless (Vercel) bez úprav. Zálohovat stačí `data/` + `uploads/`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Po nasazení upravit
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- E-mail `foto@richardtopinka.cz` (Footer.tsx, kontakt) a odkazy na sociální sítě (zatím placeholdery)
+- Placeholder fotky nahradit skutečnými přes admin
