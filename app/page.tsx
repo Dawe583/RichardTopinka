@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { Marquee } from "@/components/marquee";
 import { ParallaxImage } from "@/components/parallax-image";
-import { series, site, works } from "@/lib/content";
+import { series, services, site, testimonials, works } from "@/lib/content";
 
 const featured = ["work-01", "work-03", "work-07", "work-04", "work-06", "work-02"]
   .map((id) => works.find((w) => w.src.includes(id)))
@@ -143,6 +143,52 @@ export default function Home() {
         </Link>
       </section>
 
+      {/* ---------------- SERVICES ---------------- */}
+      <section className="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <Reveal className="mb-12 flex items-end justify-between gap-6">
+          <div>
+            <p className="eyebrow">Služby</p>
+            <h2 className="display mt-3 text-4xl sm:text-5xl">Co pro vás nafotím</h2>
+          </div>
+          <Link
+            href="/sluzby"
+            className="hidden shrink-0 text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink sm:block"
+          >
+            Služby &amp; ceník
+          </Link>
+        </Reveal>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          {services.map((s, i) => (
+            <Reveal key={s.slug} as="div" delay={i * 90}>
+              <Link href={`/sluzby/${s.slug}`} className="group block">
+                <ParallaxImage
+                  src={s.cover}
+                  alt={s.title}
+                  speed={12}
+                  className="aspect-[3/4] w-full"
+                  sizes="(max-width: 768px) 100vw, 30vw"
+                />
+                <div className="mt-5 flex items-baseline justify-between">
+                  <h3 className="display text-2xl">{s.title}</h3>
+                  <span className="text-xs uppercase tracking-[0.14em] text-ink-faint">
+                    od {s.priceFrom}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-ink-soft">{s.tagline}</p>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+
+        <Link
+          href="/sluzby"
+          className="mt-10 block text-center text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink sm:hidden"
+        >
+          Služby &amp; ceník
+        </Link>
+      </section>
+
       {/* ---------------- SERIES ---------------- */}
       <section className="border-t border-line bg-paper-2/40">
         <div className="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
@@ -206,6 +252,40 @@ export default function Home() {
               Více o mně
             </Link>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ---------------- TESTIMONIALS ---------------- */}
+      <section className="border-t border-line bg-paper-2/40">
+        <div className="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <Reveal className="mb-12 flex items-end justify-between gap-6">
+            <div>
+              <p className="eyebrow">Reference</p>
+              <h2 className="display mt-3 text-4xl sm:text-5xl">Slova klientů</h2>
+            </div>
+            <Link
+              href="/reference"
+              className="hidden shrink-0 text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink sm:block"
+            >
+              Všechny reference
+            </Link>
+          </Reveal>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            {testimonials.slice(0, 2).map((t, i) => (
+              <Reveal key={t.author} as="figure" delay={i * 90}>
+                <blockquote className="flex h-full flex-col justify-between border border-line bg-paper p-8 sm:p-10">
+                  <p className="display text-xl leading-[1.4] sm:text-2xl">„{t.quote}“</p>
+                  <figcaption className="mt-8 flex items-baseline justify-between gap-4">
+                    <span className="text-ink">{t.author}</span>
+                    <span className="text-xs uppercase tracking-[0.14em] text-ink-faint">
+                      {t.service}
+                    </span>
+                  </figcaption>
+                </blockquote>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

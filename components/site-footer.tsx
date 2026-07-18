@@ -25,6 +25,19 @@ export function SiteFooter() {
                   </Link>
                 </li>
               ))}
+              {[
+                { href: "/jak-to-probiha", label: "Jak to probíhá" },
+                { href: "/reference", label: "Reference" },
+                { href: "/darkovy-poukaz", label: "Dárkový poukaz" },
+                { href: "/tisky", label: "Tisky" },
+                { href: "/klienti", label: "Klientská galerie" },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="link-underline hover:text-ink">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
