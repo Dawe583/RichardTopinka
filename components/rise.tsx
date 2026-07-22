@@ -2,22 +2,20 @@
 
 import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 
-export type RevealVariant = "up" | "left" | "right" | "scale" | "blur" | "clip";
-
-export function Reveal({
+// Line-mask reveal that fires when the element scrolls into view: the text
+// slides up from behind a clipped edge. Use for section headings.
+export function Rise({
   children,
   className = "",
   delay = 0,
   as,
-  variant = "up",
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
   as?: ElementType;
-  variant?: RevealVariant;
 }) {
-  const Tag: ElementType = as ?? "div";
+  const Tag: ElementType = as ?? "h2";
   const ref = useRef<HTMLElement | null>(null);
   const [shown, setShown] = useState(false);
 
@@ -25,8 +23,6 @@ export function Reveal({
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {
-      // Very old / non-DOM environment: reveal on the next frame so the
-      // content never stays hidden (avoids a synchronous setState here).
       const raf = requestAnimationFrame(() => setShown(true));
       return () => cancelAnimationFrame(raf);
     }
@@ -39,21 +35,15 @@ export function Reveal({
           }
         }
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.1 }
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
   return (
-    <Tag
-      ref={ref}
-      // "up" is the default look, so leave the attribute off for it.
-      data-reveal={variant === "up" ? undefined : variant}
-      className={`reveal ${shown ? "is-visible" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
+    <Tag ref={ref} className={`rise-mask ${shown ? "is-visible" : ""} ${className}`}>
+      <span style={{ transitionDelay: `${delay}ms` }}>{children}</span>
     </Tag>
   );
 }

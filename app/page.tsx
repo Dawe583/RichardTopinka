@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
+import { Rise } from "@/components/rise";
 import { Marquee } from "@/components/marquee";
+import { Magnetic } from "@/components/magnetic";
+import { ScrollCue } from "@/components/scroll-cue";
 import { ParallaxImage } from "@/components/parallax-image";
 import { series, services, site, testimonials, works } from "@/lib/content";
 
@@ -36,18 +39,24 @@ export default function Home() {
               className="anim-fade-up mt-10 flex flex-wrap items-center gap-4"
               style={{ animationDelay: "0.45s" }}
             >
-              <Link
-                href="/galerie"
-                className="rounded-full bg-ink px-7 py-3.5 text-sm uppercase tracking-[0.14em] text-paper transition-colors hover:bg-noir"
-              >
-                Prohlédnout galerii
-              </Link>
+              <Magnetic>
+                <Link
+                  href="/galerie"
+                  className="inline-block rounded-full bg-ink px-7 py-3.5 text-sm uppercase tracking-[0.14em] text-paper transition-colors hover:bg-noir"
+                >
+                  Prohlédnout galerii
+                </Link>
+              </Magnetic>
               <Link
                 href="/kontakt"
                 className="text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink"
               >
                 Kontakt
               </Link>
+            </div>
+
+            <div className="mt-14 hidden sm:block">
+              <ScrollCue />
             </div>
           </div>
 
@@ -69,10 +78,14 @@ export default function Home() {
         <div className="mx-auto max-w-4xl px-5 py-24 text-center sm:px-8 sm:py-32">
           <Reveal>
             <p className="eyebrow">Přístup</p>
+          </Reveal>
+          <Reveal variant="blur" delay={80}>
             <p className="display mt-8 text-[2rem] leading-[1.18] sm:text-4xl">
               „Nejde o popis, ale o náladu. Jediné světlo, kus tmy a chvíle
               ticha — z toho vzniká obraz, který si pamatujete tělem, ne očima.“
             </p>
+          </Reveal>
+          <Reveal delay={180}>
             <p className="mt-8 text-sm uppercase tracking-[0.16em] text-ink-faint">
               {site.name}
             </p>
@@ -82,18 +95,22 @@ export default function Home() {
 
       {/* ---------------- FEATURED WORK ---------------- */}
       <section className="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
-        <Reveal className="mb-12 flex items-end justify-between gap-6">
+        <div className="mb-12 flex items-end justify-between gap-6">
           <div>
-            <p className="eyebrow">Výběr</p>
-            <h2 className="display mt-3 text-4xl sm:text-5xl">Vybrané práce</h2>
+            <Reveal>
+              <p className="eyebrow">Výběr</p>
+            </Reveal>
+            <Rise className="display mt-3 text-4xl sm:text-5xl">Vybrané práce</Rise>
           </div>
-          <Link
-            href="/galerie"
-            className="hidden shrink-0 text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink sm:block"
-          >
-            Celá galerie
-          </Link>
-        </Reveal>
+          <Reveal delay={120} className="hidden shrink-0 sm:block">
+            <Link
+              href="/galerie"
+              className="text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink"
+            >
+              Celá galerie
+            </Link>
+          </Reveal>
+        </div>
 
         <div className="grid grid-cols-12 gap-4 sm:gap-6">
           {[
@@ -110,7 +127,8 @@ export default function Home() {
               <Reveal
                 key={work.src}
                 as="div"
-                delay={(i % 2) * 90}
+                variant="clip"
+                delay={(i % 2) * 120}
                 className={cls}
               >
                 <Link
@@ -145,22 +163,26 @@ export default function Home() {
 
       {/* ---------------- SERVICES ---------------- */}
       <section className="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
-        <Reveal className="mb-12 flex items-end justify-between gap-6">
+        <div className="mb-12 flex items-end justify-between gap-6">
           <div>
-            <p className="eyebrow">Služby</p>
-            <h2 className="display mt-3 text-4xl sm:text-5xl">Co pro vás nafotím</h2>
+            <Reveal>
+              <p className="eyebrow">Služby</p>
+            </Reveal>
+            <Rise className="display mt-3 text-4xl sm:text-5xl">Co pro vás nafotím</Rise>
           </div>
-          <Link
-            href="/sluzby"
-            className="hidden shrink-0 text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink sm:block"
-          >
-            Služby &amp; ceník
-          </Link>
-        </Reveal>
+          <Reveal delay={120} className="hidden shrink-0 sm:block">
+            <Link
+              href="/sluzby"
+              className="text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink"
+            >
+              Služby &amp; ceník
+            </Link>
+          </Reveal>
+        </div>
 
         <div className="grid gap-8 md:grid-cols-3">
           {services.map((s, i) => (
-            <Reveal key={s.slug} as="div" delay={i * 90}>
+            <Reveal key={s.slug} as="div" variant="scale" delay={i * 110}>
               <Link href={`/sluzby/${s.slug}`} className="group block">
                 <ParallaxImage
                   src={s.cover}
@@ -192,13 +214,15 @@ export default function Home() {
       {/* ---------------- SERIES ---------------- */}
       <section className="border-t border-line bg-paper-2/40">
         <div className="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
-          <Reveal className="mb-12">
-            <p className="eyebrow">Kolekce</p>
-            <h2 className="display mt-3 text-4xl sm:text-5xl">Série</h2>
-          </Reveal>
+          <div className="mb-12">
+            <Reveal>
+              <p className="eyebrow">Kolekce</p>
+            </Reveal>
+            <Rise className="display mt-3 text-4xl sm:text-5xl">Série</Rise>
+          </div>
           <div className="grid gap-8 md:grid-cols-3">
             {series.map((s, i) => (
-              <Reveal key={s.slug} as="div" delay={i * 90}>
+              <Reveal key={s.slug} as="div" delay={i * 110}>
                 <Link href="/serie" className="group block">
                   <ParallaxImage
                     src={s.cover}
@@ -226,7 +250,7 @@ export default function Home() {
       {/* ---------------- ABOUT TEASER ---------------- */}
       <section className="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <Reveal className="order-2 lg:order-1">
+          <Reveal variant="left" className="order-2 lg:order-1">
             <ParallaxImage
               src="/images/portrait.jpg"
               alt="Portrét autora"
@@ -235,45 +259,53 @@ export default function Home() {
               sizes="(max-width: 1024px) 100vw, 40vw"
             />
           </Reveal>
-          <Reveal className="order-1 lg:order-2" delay={80}>
-            <p className="eyebrow">O mně</p>
-            <h2 className="display mt-3 text-4xl sm:text-5xl">
+          <div className="order-1 lg:order-2">
+            <Reveal>
+              <p className="eyebrow">O mně</p>
+            </Reveal>
+            <Rise className="display mt-3 text-4xl sm:text-5xl">
               Světlo, tělo, ticho
-            </h2>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
-              Přes deset let fotografuji portrét a akt. Pracuji pomalu, v malém
-              ateliéru, s jediným zdrojem světla. Zajímá mě chvíle, kdy člověk
-              přestane pózovat a jen je.
-            </p>
-            <Link
-              href="/o-mne"
-              className="mt-8 inline-block text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink"
-            >
-              Více o mně
-            </Link>
-          </Reveal>
+            </Rise>
+            <Reveal variant="right" delay={80}>
+              <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
+                Přes deset let fotografuji portrét a akt. Pracuji pomalu, v malém
+                ateliéru, s jediným zdrojem světla. Zajímá mě chvíle, kdy člověk
+                přestane pózovat a jen je.
+              </p>
+              <Link
+                href="/o-mne"
+                className="mt-8 inline-block text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink"
+              >
+                Více o mně
+              </Link>
+            </Reveal>
+          </div>
         </div>
       </section>
 
       {/* ---------------- TESTIMONIALS ---------------- */}
       <section className="border-t border-line bg-paper-2/40">
         <div className="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
-          <Reveal className="mb-12 flex items-end justify-between gap-6">
+          <div className="mb-12 flex items-end justify-between gap-6">
             <div>
-              <p className="eyebrow">Reference</p>
-              <h2 className="display mt-3 text-4xl sm:text-5xl">Slova klientů</h2>
+              <Reveal>
+                <p className="eyebrow">Reference</p>
+              </Reveal>
+              <Rise className="display mt-3 text-4xl sm:text-5xl">Slova klientů</Rise>
             </div>
-            <Link
-              href="/reference"
-              className="hidden shrink-0 text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink sm:block"
-            >
-              Všechny reference
-            </Link>
-          </Reveal>
+            <Reveal delay={120} className="hidden shrink-0 sm:block">
+              <Link
+                href="/reference"
+                className="text-sm uppercase tracking-[0.14em] text-ink-soft link-underline hover:text-ink"
+              >
+                Všechny reference
+              </Link>
+            </Reveal>
+          </div>
 
           <div className="grid gap-8 md:grid-cols-2">
             {testimonials.slice(0, 2).map((t, i) => (
-              <Reveal key={t.author} as="figure" delay={i * 90}>
+              <Reveal key={t.author} as="figure" variant="scale" delay={i * 110}>
                 <blockquote className="flex h-full flex-col justify-between border border-line bg-paper p-8 sm:p-10">
                   <p className="display text-xl leading-[1.4] sm:text-2xl">„{t.quote}“</p>
                   <figcaption className="mt-8 flex items-baseline justify-between gap-4">
@@ -299,19 +331,23 @@ export default function Home() {
             <p className="eyebrow" style={{ color: "var(--color-ink-faint)" }}>
               Spolupráce
             </p>
-            <h2 className="display mt-6 text-4xl sm:text-6xl">
-              Máte projekt na mysli?
-            </h2>
+          </Reveal>
+          <Rise className="display mt-6 text-4xl sm:text-6xl">
+            Máte projekt na mysli?
+          </Rise>
+          <Reveal delay={120}>
             <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-paper/70">
               Portréty, akt, editorial i volná tvorba. Napište mi, rád se
               domluvíme na termínu i podobě focení.
             </p>
-            <a
-              href={`mailto:${site.email}`}
-              className="mt-10 inline-block rounded-full bg-paper px-8 py-4 text-sm uppercase tracking-[0.14em] text-ink transition-transform hover:scale-[1.03]"
-            >
-              {site.email}
-            </a>
+            <Magnetic className="mt-10" strength={0.5}>
+              <a
+                href={`mailto:${site.email}`}
+                className="inline-block rounded-full bg-paper px-8 py-4 text-sm uppercase tracking-[0.14em] text-ink transition-transform hover:scale-[1.03]"
+              >
+                {site.email}
+              </a>
+            </Magnetic>
           </Reveal>
         </div>
       </section>
